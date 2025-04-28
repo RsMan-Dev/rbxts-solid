@@ -11,6 +11,9 @@ end
 for _k, _v in TS.import(script, script, "createInstance") or {} do
 	exports[_k] = _v
 end
+for _k, _v in TS.import(script, script, "hooks") or {} do
+	exports[_k] = _v
+end
 local default = createInstance
 exports.default = default
 return exports
