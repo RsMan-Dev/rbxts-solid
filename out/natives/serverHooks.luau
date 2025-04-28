@@ -31,8 +31,7 @@ local function useStore(defaults, uniqueKey, player, eraseAtInit)
 	local session
 	TS.Promise.new(function(resolve)
 		resolve(TS.import(script, TS.getModule(script, "@rbxts", "profile-store").src))
-	end):andThen(function(_param)
-		local ProfileStore = _param.default
+	end):andThen(function(ProfileStore)
 		local profileStore = ProfileStore.New("PlayerData", defaults)
 		local _result = player
 		if _result ~= nil then

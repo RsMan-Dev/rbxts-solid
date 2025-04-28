@@ -9,7 +9,7 @@ export function useStore<T extends object>(defaults = {} as T, uniqueKey = "", p
   let value = createMutable({ data: Object.dup(defaults, true) })
   let session: Profile<T, object> | undefined
 
-  import("@rbxts/profile-store").then(({ default: ProfileStore }) => {
+  import("@rbxts/profile-store").then((ProfileStore) => {
     const profileStore = ProfileStore.New("PlayerData", defaults)
     session = profileStore.StartSessionAsync(`player_${player?.UserId ?? "server"}_${uniqueKey}`, {
       Cancel: () => player !== undefined ? player.Parent !== Players : false,
