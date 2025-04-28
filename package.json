@@ -17,7 +17,7 @@
   ],
   "author": "RsMan",
   "license": "MIT",
-  "description": "A library for creating reactive UI components in Roblox using SolidJS",
+  "description": "A library for creating reactive UI components in Roblox like SolidJS",
   "types": "out/index.d.ts",
   "files": [
     "out",
