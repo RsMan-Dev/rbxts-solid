@@ -1,0 +1,50 @@
+{
+  "name": "@rbxts/solid",
+  "version": "1.0.0",
+  "main": "out/init.lua",
+  "scripts": {
+    "build": "rbxtsc",
+    "watch": "rbxtsc -w",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "signals",
+    "solid",
+    "solidjs",
+    "solid-js",
+    "solid-js-roblox",
+    "solid-js-roblox-ts"
+  ],
+  "author": "RsMan",
+  "license": "MIT",
+  "description": "A library for creating reactive UI components in Roblox using SolidJS",
+  "types": "out/index.d.ts",
+  "files": [
+    "out",
+    "!**/*.tsbuildinfo"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "@rbxts/compiler-types": "^3.0.0-types.0",
+    "@rbxts/types": "^1.0.848",
+    "@typescript-eslint/eslint-plugin": "^8.31.1",
+    "@typescript-eslint/parser": "^8.31.1",
+    "eslint": "^8.57.1",
+    "eslint-config-prettier": "^10.1.2",
+    "eslint-plugin-prettier": "^5.2.6",
+    "eslint-plugin-roblox-ts": "^0.0.36",
+    "prettier": "^3.5.3",
+    "roblox-ts": "^3.0.0",
+    "typescript": "^5.8.3",
+    "@flamework/components": "^1.2.2",
+    "@flamework/core": "^1.2.2"
+  },
+  "dependencies": {
+    "@rbxts/bridge": "github:RsMan-Dev/rbxts-bridge",
+    "@rbxts/jsnatives": "github:RsMan-Dev/rbxts-jsnatives",
+    "@rbxts/profile-store": "^1.0.3",
+    "@rbxts/signals": "github:RsMan-Dev/rbxts-signals"
+  }
+}
