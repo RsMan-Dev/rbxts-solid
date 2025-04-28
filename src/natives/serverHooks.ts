@@ -10,8 +10,8 @@ let ProfileStore: {
   ) => Store<Template, RobloxMetadata>
 }
 if (RunService.IsServer()) {
-  import("@rbxts/profile-store").then((ProfileStore) => {
-    ProfileStore = ProfileStore
+  import("@rbxts/profile-store").then((ProfileStoreRes) => {
+    ProfileStore = ProfileStoreRes
   })
 }
 

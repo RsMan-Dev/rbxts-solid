@@ -15,8 +15,8 @@ local ProfileStore
 if RunService:IsServer() then
 	TS.Promise.new(function(resolve)
 		resolve(TS.import(script, TS.getModule(script, "@rbxts", "profile-store").src))
-	end):andThen(function(ProfileStore)
-		ProfileStore = ProfileStore
+	end):andThen(function(ProfileStoreRes)
+		ProfileStore = ProfileStoreRes
 	end)
 end
 local function useStore(defaults, uniqueKey, player, eraseAtInit)
