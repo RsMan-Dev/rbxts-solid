@@ -24,7 +24,23 @@ Currently available through GitHub:
 ```bash
 npm install @rbxts/solid@github:RsMan-Dev/rbxts-solid
 ```
+in tsconfig.json:
 
+```json
+{
+  "compilerOptions": {
+    "plugins": [
+      {
+        "transform": "./node_modules/@rbxts/solid/out/transformer",
+      },
+    ],
+
+    "jsx": "react",
+    "jsxFactory": "SOLID.createElement",
+    "jsxFragmentFactory": "SOLID.createFragment"
+  }
+}
+```
 > Note: NPM package coming soon!
 
 ## Quick Start
