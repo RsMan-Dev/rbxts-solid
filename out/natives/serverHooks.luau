@@ -5,13 +5,20 @@ local Players = _services.Players
 local RunService = _services.RunService
 local _jsnatives = TS.import(script, TS.getModule(script, "@rbxts", "jsnatives").out)
 local clearTimeout = _jsnatives.clearTimeout
-local Object = _jsnatives.Object
 local setTimeout = _jsnatives.setTimeout
 local _signals = TS.import(script, TS.getModule(script, "@rbxts", "signals").out)
 local createEffect = _signals.createEffect
 local onCleanup = _signals.onCleanup
 local createMutable = _signals.createMutable
 local withoutWrap = _signals.withoutWrap
+local ProfileStore
+if RunService:IsServer() then
+	TS.Promise.new(function(resolve)
+		resolve(TS.import(script, TS.getModule(script, "@rbxts", "profile-store").src))
+	end):andThen(function(ProfileStore)
+		ProfileStore = ProfileStore
+	end)
+end
 local function useStore(defaults, uniqueKey, player, eraseAtInit)
 	if defaults == nil then
 		defaults = {}
@@ -25,32 +32,27 @@ local function useStore(defaults, uniqueKey, player, eraseAtInit)
 	if RunService:IsClient() then
 		error("this hook is server only")
 	end
-	local value = createMutable({
-		data = Object.dup(defaults, true),
+	local profileStore = ProfileStore.New("PlayerData", defaults)
+	local _result = player
+	if _result ~= nil then
+		_result = _result.UserId
+	end
+	local _condition = _result
+	if _condition == nil then
+		_condition = "server"
+	end
+	local session = profileStore:StartSessionAsync(`player_{_condition}_{uniqueKey}`, {
+		Cancel = function()
+			return if player ~= nil then player.Parent ~= Players else false
+		end,
 	})
-	local session
-	TS.Promise.new(function(resolve)
-		resolve(TS.import(script, TS.getModule(script, "@rbxts", "profile-store").src))
-	end):andThen(function(ProfileStore)
-		local profileStore = ProfileStore.New("PlayerData", defaults)
-		local _result = player
-		if _result ~= nil then
-			_result = _result.UserId
-		end
-		local _condition = _result
-		if _condition == nil then
-			_condition = "server"
-		end
-		session = profileStore:StartSessionAsync(`player_{_condition}_{uniqueKey}`, {
-			Cancel = function()
-				return if player ~= nil then player.Parent ~= Players else false
-			end,
-		})
-		if player ~= nil then
-			session:AddUserId(player.UserId)
-			session:Reconcile()
-		end
-	end)
+	if player ~= nil then
+		session:AddUserId(player.UserId)
+		session:Reconcile()
+	end
+	local value = createMutable({
+		data = session.Data,
+	})
 	if eraseAtInit then
 		value.data = defaults
 	end
