@@ -139,10 +139,10 @@ do
 	ReactiveComponent.__index = ReactiveComponent
 	function ReactiveComponent:constructor()
 		super.constructor(self)
+		populateReactiveBaseRoot(self)
 		self.owner:apply(function()
 			return InstanceContext:populate(self.instance)
 		end)
-		populateReactiveBaseRoot(self)
 		populateReactiveRootLifecycles(self)
 	end
 end

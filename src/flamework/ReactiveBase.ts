@@ -102,8 +102,8 @@ export abstract class ReactiveComponent<T = {}, I extends Instance = Instance> e
   owner!: ComputationNode;
   constructor() {
     super();
-    this.owner.apply(() => InstanceContext.populate(this.instance));
     populateReactiveBaseRoot(this);
+    this.owner.apply(() => InstanceContext.populate(this.instance));
     populateReactiveRootLifecycles(this);
   }
 }
