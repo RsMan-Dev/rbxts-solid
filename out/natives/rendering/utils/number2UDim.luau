@@ -8,5 +8,5 @@ local function number2UDim(value)
 	end
 end
 return {
-	default = number2UDim,
+	number2UDim = number2UDim,
 }

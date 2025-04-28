@@ -13,7 +13,7 @@ export declare function FastFor<Arr extends FastForItems>(props: {
     Each: Arr | undefined | null;
     Fallback?: JSX.Element;
     Children: (item: FastForItem<Arr>, index: () => FastForKey<Arr>) => JSX.Element;
-}): unknown[];
+}): JSX.Element;
 export declare function Show(props: {
     When: boolean;
     Children: JSX.Element;

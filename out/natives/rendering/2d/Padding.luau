@@ -2,7 +2,7 @@
 local TS = _G[script]
 local Show = TS.import(script, script.Parent.Parent.Parent.Parent, "flow").Show
 local SOLID = TS.import(script, script.Parent.Parent.Parent.Parent, "rendering").default
-local number2UDim = TS.import(script, script.Parent.Parent, "utils", "number2UDim").default
+local number2UDim = TS.import(script, script.Parent.Parent, "utils", "number2UDim").number2UDim
 local createMemo = TS.import(script, TS.getModule(script, "@rbxts", "signals").out).createMemo
 local function convertPaddingLike(padding)
 	if padding == nil then

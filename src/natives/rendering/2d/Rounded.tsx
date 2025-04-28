@@ -1,6 +1,6 @@
 import { UDimAcceptable } from "../utils/number2UDim";
 import SOLID from "../../../rendering";
-import number2UDim from "../utils/number2UDim";
+import { number2UDim } from "../utils/number2UDim";
 
 
 export function Rounded(props: {

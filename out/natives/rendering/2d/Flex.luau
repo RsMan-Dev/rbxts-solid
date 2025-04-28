@@ -5,7 +5,7 @@ local _rendering = TS.import(script, script.Parent.Parent.Parent.Parent, "render
 local SOLID = _rendering.default
 local omitProps = _rendering.omitProps
 local splitProps = _rendering.splitProps
-local number2UDim = TS.import(script, script.Parent.Parent, "utils", "number2UDim").default
+local number2UDim = TS.import(script, script.Parent.Parent, "utils", "number2UDim").number2UDim
 local function align(horizontal, alignment)
 	repeat
 		if alignment == "start" then

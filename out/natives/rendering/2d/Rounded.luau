@@ -1,7 +1,7 @@
 -- Compiled with roblox-ts v3.0.0
 local TS = _G[script]
 local SOLID = TS.import(script, script.Parent.Parent.Parent.Parent, "rendering").default
-local number2UDim = TS.import(script, script.Parent.Parent, "utils", "number2UDim").default
+local number2UDim = TS.import(script, script.Parent.Parent, "utils", "number2UDim").number2UDim
 local function Rounded(props)
 	return SOLID.createElement("instUICorner", SOLID.mergeProps({
 		CornerRadius = function()

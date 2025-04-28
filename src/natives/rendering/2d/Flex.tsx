@@ -1,6 +1,6 @@
 import { createMemo } from "@rbxts/signals";
 import SOLID, { omitProps, splitProps } from "../../../rendering";
-import number2UDim, { UDimAcceptable } from "../utils/number2UDim";
+import { number2UDim, UDimAcceptable } from "../utils/number2UDim";
 
 export type FlexDirection = "horizontal" | "vertical";
 export type FlexAlignment = "start" | "center" | "end";

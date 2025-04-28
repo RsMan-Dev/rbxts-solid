@@ -1,6 +1,6 @@
 import { Show } from "../../../flow";
 import SOLID from "../../../rendering";
-import number2UDim, { UDimAcceptable } from "../utils/number2UDim";
+import { number2UDim, UDimAcceptable } from "../utils/number2UDim";
 import { createMemo } from "@rbxts/signals";
 
 export type PaddingLike =

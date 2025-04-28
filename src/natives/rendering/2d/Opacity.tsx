@@ -2,7 +2,7 @@ import { Show } from "../../../flow";
 import SOLID, { omitProps, splitProps } from "../../../rendering";
 
 
-export default function Opacity(props: { Opacity?: number } & JSX.IntrinsicElements["instFrame"] & JSX.IntrinsicElements["instCanvasGroup"]) {
+export function Opacity(props: { Opacity?: number } & JSX.IntrinsicElements["instFrame"] & JSX.IntrinsicElements["instCanvasGroup"]) {
   const [opacityProps, frameProps] = splitProps(omitProps(props, ["Children"]), ["Opacity"])
   return <Show When={opacityProps.Opacity !== undefined} Fallback={
     <instFrame

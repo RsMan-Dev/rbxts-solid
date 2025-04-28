@@ -28,7 +28,7 @@ export function FastFor<Arr extends FastForItems>(props: {
   Each: Arr | undefined | null,
   Fallback?: JSX.Element,
   Children: (item: FastForItem<Arr>, index: () => FastForKey<Arr>) => JSX.Element,
-}) {
+}): JSX.Element {
   const memos = createMemo<FastForMemos<Arr>>((curr) => {
     const newMap: typeof curr = new Map(),
       entries = [] as [FastForItem<Arr>, FastForKey<Arr>][],
@@ -75,7 +75,7 @@ export function FastFor<Arr extends FastForItems>(props: {
   // TODO: fallback act wrongly, props seems to be glitched
   return <>{
     memos().size() === 0 ? props.Fallback : memoizedElements()
-  }</>
+  }</> as JSX.Element
 }
 
 

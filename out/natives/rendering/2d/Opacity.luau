@@ -34,5 +34,5 @@ local function Opacity(props)
 	end)
 end
 return {
-	default = Opacity,
+	Opacity = Opacity,
 }
