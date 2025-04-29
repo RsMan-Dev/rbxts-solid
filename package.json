@@ -1,6 +1,6 @@
 {
   "name": "@rbxts/solid",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "main": "out/init.lua",
   "scripts": {
     "build": "rbxtsc",
@@ -17,7 +17,7 @@
   ],
   "author": "RsMan",
   "license": "MIT",
-  "description": "A library for creating reactive UI components in Roblox like SolidJS",
+  "description": "A library for creating reactive everything in Roblox like SolidJS",
   "types": "out/index.d.ts",
   "files": [
     "out",
@@ -42,9 +42,9 @@
     "@flamework/core": "^1.2.2"
   },
   "dependencies": {
-    "@rbxts/bridge": "^1.0.0",
-    "@rbxts/jsnatives": "^1.0.0",
+    "@rbxts/bridge": "^1.0.2",
+    "@rbxts/jsnatives": "^1.0.2",
     "@rbxts/profile-store": "^1.0.3",
-    "@rbxts/signals": "^1.0.0"
+    "@rbxts/signals": "^1.0.2"
   }
 }
