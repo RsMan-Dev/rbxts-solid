@@ -23,11 +23,18 @@ Some utilities like ScrollView are provided, the library is likely to grow with 
 
 ## Installation
 
-Currently available through GitHub:
+Currently available through GitHub (to get the latest commited build, ensure using commit hash for stability):
 
 ```bash
 npm install @rbxts/solid@github:RsMan-Dev/rbxts-solid
 ```
+
+Via NPM:
+
+```bash
+npm install @rbxts/solid
+```
+
 in tsconfig.json:
 
 ```json
@@ -45,7 +52,6 @@ in tsconfig.json:
   }
 }
 ```
-> Note: NPM package coming soon!
 
 ## Quick Start
 
