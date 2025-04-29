@@ -42,9 +42,9 @@
     "@flamework/core": "^1.2.2"
   },
   "dependencies": {
-    "@rbxts/bridge": "github:RsMan-Dev/rbxts-bridge",
-    "@rbxts/jsnatives": "github:RsMan-Dev/rbxts-jsnatives",
+    "@rbxts/bridge": "^1.0.0",
+    "@rbxts/jsnatives": "^1.0.0",
     "@rbxts/profile-store": "^1.0.3",
-    "@rbxts/signals": "github:RsMan-Dev/rbxts-signals"
+    "@rbxts/signals": "^1.0.0"
   }
 }

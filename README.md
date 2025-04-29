@@ -3,7 +3,11 @@
 [![npm version](https://img.shields.io/npm/v/@rbxts/solid)](https://www.npmjs.com/package/@rbxts/solid)
 [![GitHub license](https://img.shields.io/github/license/RsMan-Dev/rbxts-solid)](https://github.com/RsMan-Dev/rbxts-solid/blob/main/LICENSE)
 
-A powerful reactive UI library for Roblox TypeScript projects, inspired by SolidJS. This library provides an efficient way to create reactive user interfaces in your Roblox games using JSX syntax and reactive primitives.
+A powerful reactive library for Roblox TypeScript projects, inspired by SolidJS. This library provides an efficient way to create reactive **everything** in your Roblox games using JSX syntax and reactive primitives.
+All that is instance is renderable, so you can use it to create reactive UI, physical elements, and every other instances in your game.
+Some utilities like ScrollView are provided, the library is likely to grow with time, adding many more utilities.
+
+> Warning: This doc is not complete yet, look at the code directly if you want more infos, or dm me on discord: @rsman
 
 ## Table of Contents
 
