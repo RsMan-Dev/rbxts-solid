@@ -47,7 +47,7 @@
   },
   "dependencies": {
     "@rbxts/bridge": "^1.0.3",
-    "@rbxts/jsnatives": "^1.1.0",
+    "@rbxts/jsnatives": "^1.1.1",
     "@rbxts/profile-store": "^1.0.3",
     "@rbxts/signals": "^1.0.3"
   }
