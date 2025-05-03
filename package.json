@@ -1,6 +1,6 @@
 {
   "name": "@rbxts/solid",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "main": "out/init.lua",
   "scripts": {
     "build": "rbxtsc",
@@ -46,9 +46,9 @@
     "@flamework/core": "^1.2.2"
   },
   "dependencies": {
-    "@rbxts/bridge": "^1.0.3",
-    "@rbxts/jsnatives": "^1.1.1",
+    "@rbxts/bridge": "^1.0.5",
+    "@rbxts/jsnatives": "^1.1.2",
     "@rbxts/profile-store": "^1.0.3",
-    "@rbxts/signals": "^1.0.3"
+    "@rbxts/signals": "^1.0.5"
   }
 }
