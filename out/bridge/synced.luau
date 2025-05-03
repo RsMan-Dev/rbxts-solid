@@ -158,7 +158,7 @@ local function createSynced(useKey, init, writeableOn, throttleDelay)
 	local mutableConstructor = function(player)
 		local synced = constructor(player)
 		local mut = createMutable({
-			data = synced.data,
+			data = Object.dup(synced.data, true),
 		})
 		local _player = synced.player
 		if constructeds[_player] ~= nil then

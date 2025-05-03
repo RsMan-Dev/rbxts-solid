@@ -123,7 +123,7 @@ export function createSynced<T>(useKey: string, init: T, writeableOn: "server" |
   const constructeds = new Map<Player, () => T>();
 
   const mutableConstructor = (player?: Player) => {
-    const synced = constructor(player), mut = createMutable<{ data: T }>({ data: synced.data });
+    const synced = constructor(player), mut = createMutable<{ data: T }>({ data: Object.dup(synced.data, true) });
 
     if (constructeds.has(synced.player)) return constructeds.get(synced.player) as () => T;
 
