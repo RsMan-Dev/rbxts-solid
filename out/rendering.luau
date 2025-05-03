@@ -1,6 +1,7 @@
 -- Compiled with roblox-ts v3.0.0
 local TS = _G[script]
 local _jsnatives = TS.import(script, TS.getModule(script, "@rbxts", "jsnatives").out)
+local ArrayUtils = _jsnatives.ArrayUtils
 local Object = _jsnatives.Object
 local Proxy = _jsnatives.Proxy
 local _signals = TS.import(script, TS.getModule(script, "@rbxts", "signals").out)
@@ -295,7 +296,7 @@ SOLID = {
 		if type(_children) == "function" then
 			children = children()
 		end
-		if Object.isArray(children) then
+		if ArrayUtils.isArray(children) then
 			-- ▼ ReadonlyArray.map ▼
 			local _newValue = table.create(#children)
 			local _callback = function(child)
@@ -303,7 +304,7 @@ SOLID = {
 				if type(_child) == "function" then
 					child = child()
 				end
-				if Object.isArray(child) then
+				if ArrayUtils.isArray(child) then
 					return SOLID.unwrapChildren(child)
 				end
 				return child

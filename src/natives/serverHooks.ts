@@ -1,7 +1,7 @@
 import { Players, RunService } from "@rbxts/services";
-import { clearTimeout, Object, setTimeout, TimeoutSymbol } from "@rbxts/jsnatives";
+import { clearTimeout, setTimeout } from "@rbxts/jsnatives";
 import { createEffect, onCleanup, createMutable, withoutWrap } from "@rbxts/signals";
-import type { Profile, Store } from "@rbxts/profile-store";
+import type { Store } from "@rbxts/profile-store";
 
 let ProfileStore: {
   New:<Template extends object, RobloxMetadata extends object = object>(
@@ -38,7 +38,7 @@ export function useStore<T extends object>(defaults = {} as T, uniqueKey = "", p
     session.Save()
   }
 
-  let currentTimeout: TimeoutSymbol | undefined, currentSavingValue: T | undefined
+  let currentTimeout: symbol | undefined, currentSavingValue: T | undefined
   function createSave(value: T) {
     currentSavingValue = value
     if (currentTimeout) return

@@ -9,7 +9,9 @@ local getOwner = _signals.getOwner
 local disposeNode = _signals.disposeNode
 local createComputation = _signals.createComputation
 local Workspace = TS.import(script, TS.getModule(script, "@rbxts", "services")).Workspace
-local Object = TS.import(script, TS.getModule(script, "@rbxts", "jsnatives").out).Object
+local _jsnatives = TS.import(script, TS.getModule(script, "@rbxts", "jsnatives").out)
+local ArrayUtils = _jsnatives.ArrayUtils
+local Object = _jsnatives.Object
 -- 
 local InstanceContext = createContext(nil)
 local function runWithInstance(instance, callback)
@@ -137,7 +139,7 @@ local function createInstance(SOLID, key, attributes, ...)
 									SOLID:cleanupDebug(`Disconnected {if prefix == "get" then "getter" else "function"} {k} from an instance`)
 								end)
 							else
-								if Object.isArray(value) then
+								if ArrayUtils.isArray(value) then
 									elementPropFunction(element, unpack(value))
 								else
 									elementPropFunction(element, value)

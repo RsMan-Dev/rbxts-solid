@@ -67,7 +67,7 @@ local function useStore(defaults, uniqueKey, player, eraseAtInit)
 	local currentSavingValue
 	local function createSave(value)
 		currentSavingValue = value
-		if currentTimeout ~= 0 and currentTimeout == currentTimeout and currentTimeout ~= "" and currentTimeout then
+		if currentTimeout then
 			return nil
 		end
 		currentTimeout = setTimeout(function()

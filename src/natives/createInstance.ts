@@ -1,7 +1,7 @@
 import { createEffect, onCleanup, untrack, createContext, getOwner, disposeNode, createComputation } from "@rbxts/signals"
 import { Workspace } from "@rbxts/services"
 import type { SOLIDTYPE } from "../rendering"
-import { Object } from "@rbxts/jsnatives"
+import { ArrayUtils, Object } from "@rbxts/jsnatives"
 
 type SignalFunction<T, A extends any[] = any[], Cb extends Callback = Callback> = {
   (this: T, ...args: A): RBXScriptSignal<Cb>
@@ -170,7 +170,7 @@ export default function createInstance(
               }
               // unless, we act as a setter, and we pass given value or properties array spreaded into the function's args
               else {
-                Object.isArray(value)
+                ArrayUtils.isArray(value)
                   ? elementPropFunction(element, ...(value as unknown[]))
                   : elementPropFunction(element, value)
                 SOLID.createDebug(`Used values in setter ${k} to instance`, element)

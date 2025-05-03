@@ -1,7 +1,8 @@
-import { Object, Proxy, ProxyHandler } from "@rbxts/jsnatives"
+import { ArrayUtils, Object, Proxy } from "@rbxts/jsnatives"
 import { createMemo, getOwner, untrack } from "@rbxts/signals"
 import createInstance from "./natives/createInstance"
 import { TransformedInstanceAttributes } from "./natives/createInstance"
+import type { ProxyHandler } from "@rbxts/jsnatives/out/proxy"
 
 declare global {
   type InstanceMap = CreatableInstances & { Instance: Instance }
@@ -208,9 +209,9 @@ const SOLID = {
 
   unwrapChildren: <T extends unknown[]>(children: T): T => {
     if (typeIs(children, "function")) children = children() as T
-    if (Object.isArray(children)) return (children as defined[]).map((child) => {
+    if (ArrayUtils.isArray(children)) return (children as defined[]).map((child) => {
       if (typeIs(child, "function")) child = child() as defined
-      if (Object.isArray(child)) return SOLID.unwrapChildren(child)
+      if (ArrayUtils.isArray(child)) return SOLID.unwrapChildren(child)
       return child
     }) as T
     return children as T
