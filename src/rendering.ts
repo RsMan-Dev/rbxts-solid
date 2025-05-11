@@ -2,7 +2,6 @@ import { ArrayUtils, Object, Proxy } from "@rbxts/jsnatives"
 import { createMemo, getOwner, untrack } from "@rbxts/signals"
 import createInstance from "./natives/createInstance"
 import { TransformedInstanceAttributes } from "./natives/createInstance"
-import type { ProxyHandler } from "@rbxts/jsnatives/out/proxy"
 
 declare global {
   type InstanceMap = CreatableInstances & { Instance: Instance }
@@ -89,21 +88,21 @@ const SOLID = {
       sources[i] = typeIs(s, "function") ? createMemo(s as () => Record<string, unknown>).accessor : s;
     }
 
-    let get: ProxyHandler<Record<string, unknown>>["get"],
-      ownKeys: ProxyHandler<Record<string, unknown>>["ownKeys"]
+    let get: (target: Record<string, unknown>, key: unknown) => unknown,
+      ownKeys: (target: Record<string, unknown>) => string[]
 
     // if size is 1, unwrap the array and create simplified functions
     if (size === 1) {
       const source = sources[0]
       if (Object.isCallable(source)) {
-        get = (_, key: string) => (source as () => Record<string, unknown>)()[key]
+        get = (_, key) => (source as () => Record<string, unknown>)()[key as string]
         ownKeys = () => Object.keys(source())
       } else if ((source as Record<symbol, boolean>)[MERGED]) {
-        get = (_, key: string) => (source as Record<string, unknown>)[key]
+        get = (_, key) => (source as Record<string, unknown>)[key as string]
         ownKeys = () => Object.keys(source)
       } else {
-        get = (_, key: string) => {
-          const s = (source as Record<string, unknown>)[key]
+        get = (_, key) => {
+          const s = (source as Record<string, unknown>)[key as string]
           if (Object.isCallable(s)) return s()
           return s
         }
@@ -112,18 +111,18 @@ const SOLID = {
         }
       }
     } else {
-      get = (_, key: string) => {
+      get = (_, key) => {
         let found = false
         for (const i of $range(0, size)) {
           let source = sources[i] as unknown
           if (source === undefined) continue
 
           if (Object.isCallable(source)) {
-            source = (source as () => Record<string, unknown>)()[key]
+            source = (source as () => Record<string, unknown>)()[key as string]
             found = source !== undefined
           } else {
             const merged = (source as Record<symbol, boolean>)[MERGED]
-            source = (source as Record<string, unknown>)[key]
+            source = (source as Record<string, unknown>)[key as string]
             found = source !== undefined
             if (!merged && Object.isCallable(source)) source = source()
           }
@@ -152,11 +151,11 @@ const SOLID = {
     return new Proxy(
       target,
       {
-        get: (_, prop: string) => {
+        get: (_, prop) => {
           if (pickedSet.has(prop as K)) return props[prop as keyof T];
         },
-        set: (_, prop: string, value) => {
-          if (pickedSet.has(prop as K)) (props as Record<string, unknown>)[prop] = value;
+        set: (_, prop, value) => {
+          if (pickedSet.has(prop as K)) (props as Record<string, unknown>)[prop as string] = value;
           return true;
         },
         ownKeys: () => {
@@ -179,11 +178,11 @@ const SOLID = {
     return new Proxy(
       target,
       {
-        get: (_, prop: string) => {
+        get: (_, prop) => {
           if (!omitedSet.has(prop as K)) return props[prop as keyof T];
         },
-        set: (_, prop: string, value) => {
-          if (!omitedSet.has(prop as K)) (props as Record<string, unknown>)[prop] = value;
+        set: (_, prop, value) => {
+          if (!omitedSet.has(prop as K)) (props as Record<string, unknown>)[prop as string] = value;
           return true;
         },
         ownKeys: () => {

@@ -196,9 +196,9 @@ export default function createInstance(
 
             const owner = getOwner(), callback = (...args: unknown[]) => owner?.apply(() => fn(element, ...args))
             // register the callback to the signal, using the type event provided by the prefix
-            if (prefix === "once") connection = signal.Once((...args: unknown[]) => callback(element, ...args))
-            else if (prefix === "parallel") connection = signal.ConnectParallel((...args: unknown[]) => callback(element, ...args))
-            else connection = signal.Connect((...args: unknown[]) => callback(element, ...args))
+            if (prefix === "once") connection = signal.Once(callback)
+            else if (prefix === "parallel") connection = signal.ConnectParallel(callback)
+            else connection = signal.Connect(callback)
 
             SOLID.createDebug(`Connected event ${k} to an instance`, element)
 

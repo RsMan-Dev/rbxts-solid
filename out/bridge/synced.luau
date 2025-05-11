@@ -14,85 +14,10 @@ local function makePatch(current, newData, patchObject)
 	if patchObject == nil then
 		patchObject = {}
 	end
-	local _set = {}
-	local _array = {}
-	local _length = #_array
-	local _array_1 = Object.keys(current)
-	local _Length = #_array_1
-	table.move(_array_1, 1, _Length, _length + 1, _array)
-	_length += _Length
-	local _array_2 = Object.keys(newData)
-	table.move(_array_2, 1, #_array_2, _length + 1, _array)
-	for _, _v in _array do
-		_set[_v] = true
-	end
-	local keys = _set
-	for key in keys do
-		local currentValue = current[key]
-		local newValue = newData[key]
-		local _exp = typeof(currentValue)
-		repeat
-			local _fallthrough = false
-			if _exp == "function" then
-				_fallthrough = true
-			end
-			if _fallthrough or _exp == "thread" then
-				_fallthrough = true
-			end
-			if _fallthrough or _exp == "userdata" then
-				_fallthrough = true
-			end
-			if _fallthrough or _exp == "buffer" then
-				break
-			end
-			if _exp == "nil" then
-				if newValue ~= nil then
-					patchObject[key] = newValue
-				end
-				break
-			end
-			if _exp == "table" then
-				if typeof(newValue) == "table" then
-					local nestedPatch = makePatch(currentValue, newValue)
-					if not Object.isEmpty(nestedPatch) then
-						patchObject[key] = nestedPatch
-					end
-				else
-					patchObject[key] = newValue
-				end
-				break
-			end
-			-- Considering all other values are primitives or overrides __eq metamethod
-			if newValue == nil then
-				patchObject[key] = DELETE
-			elseif currentValue ~= newValue then
-				patchObject[key] = newValue
-			end
-		until true
-	end
-	return patchObject
+	return Object.diff(Object.excludeTypes(newData, { "function", "thread", "userdata", "buffer" }, true), current, true)
 end
 local function applyPatch(target, patch)
-	for _, entries in Object.entries(patch) do
-		local _binding = entries
-		local key = _binding[1]
-		local value = _binding[2]
-		if typeof(value) == "table" then
-			if value == DELETE then
-				target[key] = nil
-			else
-				local _arg0 = target[key]
-				if typeof(_arg0) == "table" then
-					target[key] = applyPatch(target[key], value)
-				else
-					target[key] = value
-				end
-			end
-		else
-			target[key] = value
-		end
-	end
-	return target
+	return Object.patch(target, patch, true)
 end
 --[[
 	*
@@ -168,7 +93,7 @@ local function createSynced(useKey, init, writeableOn, throttleDelay)
 		local patchingMutable = false
 		synced.onUpdated(function(ctx)
 			patchingMutable = true
-			mut.data = ctx.data
+			mut.data = Object.dup(ctx.data, true)
 			patchingMutable = false
 		end)
 		createRoot(function()

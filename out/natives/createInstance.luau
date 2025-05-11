@@ -180,20 +180,11 @@ local function createInstance(SOLID, key, attributes, ...)
 						end
 						-- register the callback to the signal, using the type event provided by the prefix
 						if prefix == "once" then
-							connection = signal:Once(function(...)
-								local args = { ... }
-								return callback(element, unpack(args))
-							end)
+							connection = signal:Once(callback)
 						elseif prefix == "parallel" then
-							connection = signal:ConnectParallel(function(...)
-								local args = { ... }
-								return callback(element, unpack(args))
-							end)
+							connection = signal:ConnectParallel(callback)
 						else
-							connection = signal:Connect(function(...)
-								local args = { ... }
-								return callback(element, unpack(args))
-							end)
+							connection = signal:Connect(callback)
 						end
 						SOLID:createDebug(`Connected event {k} to an instance`, element)
 						-- disconnect the signal when the element or attribute is cleaned up

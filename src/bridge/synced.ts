@@ -9,62 +9,11 @@ type Target = Record<string | number | symbol, unknown>
 const DELETE = {} as symbol;
 
 function makePatch<T extends object>(current: T, newData: T, patchObject: Partial<T> = {}): Partial<T> {
-  const keys = new Set<string | number | symbol>([...Object.keys(current), ...Object.keys(newData)]);
-
-  for (const key of keys) {
-    const currentValue = (current as Target)[key];
-    const newValue = (newData as Target)[key];
-
-    switch (typeOf(currentValue)) {
-      case "function":
-      case "thread":
-      case "userdata":
-      case "buffer":
-        break; // Ignore these types, they are not serializable
-      case "nil":
-        if (newValue !== undefined) {
-          (patchObject as Target)[key] = newValue;
-        }
-        break;
-      case "table":
-        if (typeOf(newValue) === "table") {
-          const nestedPatch = makePatch(currentValue as object, newValue as object);
-          if (!Object.isEmpty(nestedPatch)) {
-            (patchObject as Target)[key] = nestedPatch;
-          }
-        } else {
-          (patchObject as Target)[key] = newValue;
-        }
-        break;
-      default:
-        // Considering all other values are primitives or overrides __eq metamethod
-        if (newValue === undefined) {
-          (patchObject as Target)[key] = DELETE;
-        } else if (currentValue !== newValue) {
-          (patchObject as Target)[key] = newValue;
-        }
-    }
-  }
-
-  return patchObject;
+  return Object.diff(Object.excludeTypes(newData, ["function", "thread", "userdata", "buffer"], true), current, true)
 }
 
 function applyPatch<T extends object>(target: T, patch: Partial<T>): T {
-  for (const entries of Object.entries(patch)) {
-    const [key, value] = entries;
-    if (typeOf(value) === "table") {
-      if (value === DELETE) {
-        (target as Target)[key] = undefined;
-      } else if (typeOf(target[key]) === "table") {
-        (target as Target)[key] = applyPatch((target as Target)[key] as Target, value);
-      } else {
-        (target as Target)[key] = value;
-      }
-    } else {
-      target[key] = value;
-    }
-  }
-  return target;
+  return Object.patch(target, patch, true);
 }
 
 /**
@@ -131,7 +80,7 @@ export function createSynced<T>(useKey: string, init: T, writeableOn: "server" |
 
     synced.onUpdated((ctx) => {
       patchingMutable = true;
-      mut.data = ctx.data
+      mut.data = Object.dup(ctx.data, true)
       patchingMutable = false;
     });
 

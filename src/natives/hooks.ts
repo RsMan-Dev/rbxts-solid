@@ -33,10 +33,10 @@ export function useInstanceAttributes<T extends Record<string, AttributeValue | 
   })
 
   return new Proxy({} as Record<string, unknown>, {
-    get: (_, prop) => getAttribute(prop),
+    get: (_, prop) => getAttribute(prop as string),
     set: (_, prop, value) => {
-      instance.SetAttribute(prop, value as AttributeValue);
-      setAttribute(prop, value as AttributeValue);
+      instance.SetAttribute(prop as string, value as AttributeValue);
+      setAttribute(prop as string, value as AttributeValue);
       return true;
     },
     ownKeys: () => {
